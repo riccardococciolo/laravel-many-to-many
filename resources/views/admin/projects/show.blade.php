@@ -11,6 +11,14 @@
         <div>
             Tipologia: {{ $project->type ? $project->type->name : 'Nessuna tipologia' }}
         </div>
+        <div class="my-3">
+            Tecnologia:
+            @forelse ($project->technologies as $technology)
+                <span class="badge bg-primary">{{ $technology->name }}</span>
+            @empty
+                <span>Nessuna Technologia</span>
+            @endforelse
+        </div>
         @if ($project->cover_image)
             <div class="">
                 <img class="w-50" src="{{ asset('storage/' . $project->cover_image) }}" alt="">
