@@ -6,7 +6,10 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -17,9 +20,13 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::all();
+        $perPage = 10;
+        if($request->per_page) {
+            $perPage = $request->per_page;
+        }
+        $projects = Project::paginate($perPage);
 
         return view('admin.projects.index', compact('projects'));
     }
@@ -32,7 +39,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
