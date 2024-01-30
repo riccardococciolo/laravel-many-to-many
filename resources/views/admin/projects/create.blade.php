@@ -51,10 +51,6 @@
                                 </label>
                             </div>
                         @endforeach
-        
-                        @error('tags')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
                     </div>
 
                     <div class="mb-3">
