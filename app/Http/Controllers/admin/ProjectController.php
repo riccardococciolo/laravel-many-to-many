@@ -118,6 +118,12 @@ class ProjectController extends Controller
             }    
 
             $project->update($form_data);
+
+            if ($request->has('technologies')) {
+                $project->technologies()->sync($request->technologies);
+            } else { 
+                $project->technologies()->sync([]);
+            }
     
             return redirect()->route('admin.projects.show', ['project' => $project->slug])->with('message', 'il messaggio é stato modificato con successo');
         }
