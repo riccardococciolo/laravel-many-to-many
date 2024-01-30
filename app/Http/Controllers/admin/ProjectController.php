@@ -63,6 +63,10 @@ class ProjectController extends Controller
             }
 
             $project->save();
+
+            if ($request->has('technologies')) {
+                $project->technologies()->attach($request->technologies);
+            }
     
             return redirect()->route('admin.projects.show', ['project' => $project->slug])->with('message', 'il messaggio é stato creato con successo');
         }
